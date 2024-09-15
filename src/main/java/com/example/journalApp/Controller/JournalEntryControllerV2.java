@@ -1,6 +1,5 @@
 package com.example.journalApp.Controller;
 
-
 import com.example.journalApp.Entity.JournalEntry;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/journal")
-public class JournalEntityController {
+public class JournalEntryControllerV2 {
 
     public Map<Long, JournalEntry> journalEntries = new HashMap<>();
 
@@ -41,4 +41,5 @@ public class JournalEntityController {
         journalEntries.put(myId, myEntry);
         return "your entry is successfully Updated";
     }
+
 }
