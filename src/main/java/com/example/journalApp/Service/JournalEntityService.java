@@ -23,11 +23,15 @@ public class JournalEntityService {
 
     @Transactional
     public void saveEntry(JournalEntry journalEntry, String username){
-        User user = userService.findUserByName(username);
-        journalEntry.setDate(LocalDateTime.now());
-        JournalEntry saved = journalEntryRepo.save(journalEntry);
-        user.getJournalEntries().add(saved);
-        userService.saveUser(user);
+        try {
+            User user = userService.findUserByName(username);
+            journalEntry.setDate(LocalDateTime.now());
+            JournalEntry saved = journalEntryRepo.save(journalEntry);
+            user.getJournalEntries().add(saved);
+            userService.saveUser(user);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void saveEntry(JournalEntry journalEntry){
