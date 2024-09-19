@@ -2,13 +2,27 @@ package com.example.journalApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class JournalAppApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(JournalAppApplication.class, args);
 	}
 
+	public TransactionManager add(MongoDatabaseFactory dbFactory){
+		return new MongoTransactionManager(dbFactory);
+	}
+
 }
+
+
+/*
+* We are using MongoDatabaseFactory because behind the scene this Factory is responsible
+* for every operation related to Mongo and MDF is an interface that hold different db Methods
+*/
