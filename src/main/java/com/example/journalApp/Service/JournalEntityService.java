@@ -31,6 +31,7 @@ public class JournalEntityService {
             userService.saveUser(user);
         } catch (Exception e) {
             System.out.println(e);
+            throw new RuntimeException("getting error while saving the entry" + e);
         }
     }
 
