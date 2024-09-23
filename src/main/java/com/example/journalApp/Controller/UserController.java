@@ -1,6 +1,7 @@
 package com.example.journalApp.Controller;
 
 import com.example.journalApp.Entity.User;
+import com.example.journalApp.Repository.UserRepo;
 import com.example.journalApp.Service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @GetMapping
     public List<User> getAllUser(){
         return userService.getAllUsers();
@@ -28,17 +32,19 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user){
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-
-        System.out.println(userName);
-
         User myUser = userService.findUserByName(userName);
         myUser.setUsername(user.getUsername());
         myUser.setPassword(user.getPassword());
-        userService.saveUser((myUser));
+        userService.saveNewUser((myUser));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteUserById(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userRepo.deleteByUserName(authentication.getName());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
