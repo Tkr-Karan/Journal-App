@@ -1,0 +1,12 @@
+spring:
+  application:
+    name : Journal App
+  #spring.data.mongodb.host=localhost
+  #spring.data.mongodb.port=27017
+  data:
+    mongodb:
+      uri : mongodb+srv://karankumar254:vxEljJqvSiMW9rvs@cluster0.lknmo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database : journaldb
+      auto-index-creation : true
+  main:
+    allow-circular-references : true
